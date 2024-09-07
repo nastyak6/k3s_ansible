@@ -1,0 +1,32 @@
+---
+- name: Install K3s binary
+  become: yes 
+  copy:
+    src: k3s
+    dest: /usr/local/bin/k3s
+    mode: '0755'
+
+- name: Copy the script to the machine
+  copy:
+    src: install.sh
+    dest: /tmp/install.sh
+    mode: '0755'
+
+- name: Run the install script on localhost
+  shell: |
+        INSTALL_K3S_SKIP_DOWNLOAD=true /tmp/install.sh
+
+- name: Wait for K3s to start
+  pause:
+    seconds: 10  # Adjust as needed to ensure K3s is up
+
+- name: Get nodes using kubectl
+  shell: kubectl get nodes
+  register: kubectl_output
+  until: "'Ready' in kubectl_output.stdout"
+  retries: 30
+  delay: 10  # Delay in seconds between retries
+
+- name: Display kubectl output
+  debug:
+    msg: "{{ kubectl_output.stdout_lines | join('\n ') }}"

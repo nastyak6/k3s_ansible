@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  roles:
+    - role: k3s_install_master
+# - hosts: agents
+#   roles:
+#     - role: k3s_install_agent
+  # vars:
+  #   k3s_master_ip: "10.0.2.15"
+    # k3s_token: "{{ lookup('file', '/var/lib/rancher/k3s/server/node-token') }}"
