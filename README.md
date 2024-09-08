@@ -17,7 +17,7 @@ Ensure the following prerequisites are met before running the playbook:
 - **Operating System**: Ubuntu (preferred) or any compatible Linux distribution.
 - **Ansible**: Installed on the control machine.
 - **Python**: Installed on the control machine.
-- **K3s binaries**: Downloaded and included in the repository (for air-gapped environments).
+- **K3s binaries**: Downloaded and included in the repository.
 - **Root access**: On the target machines.
 
 ### Install Ansible
@@ -63,7 +63,7 @@ kubectl get nodes
 ```
 
 
-##### GAPS
+## GAPS
 Tried installing on localhost both the Master and Agent, no success. 
 Keep getting unauthorized issue:
 
