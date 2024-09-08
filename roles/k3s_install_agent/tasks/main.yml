@@ -5,9 +5,6 @@
     dest: /tmp/install.sh
     mode: '0755'
 
-# add command to add folder: mkdir -p /var/lib/rancher/k3s/agent/images
-
-
 - name: Install K3s agent
   shell: |
     INSTALL_K3S_SKIP_DOWNLOAD=true K3S_URL=http://{{ k3s_master_ip }}:6443 K3S_TOKEN={{ k3s_token }} /tmp/install.sh
