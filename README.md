@@ -63,5 +63,19 @@ kubectl get nodes
 ```
 
 
+##### GAPS
+Tried installing on localhost both the Master and Agent, no success. 
+Keep getting unauthorized issue:
 
+curl -k -H "Authorization: Bearer $TOKEN" https://10.0.2.15:6443
+{
+  "kind": "Status",
+  "apiVersion": "v1",
+  "metadata": {},
+  "status": "Failure",
+  "message": "Unauthorized",
+  "reason": "Unauthorized",
+  "code": 401
+}
 
+Hence project installs the Master node but no agents ATM.
