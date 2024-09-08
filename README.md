@@ -67,6 +67,7 @@ kubectl get nodes
 Tried installing on localhost both the Master and Agent, no success. 
 Keep getting unauthorized issue:
 
+```bash
 curl -k -H "Authorization: Bearer $TOKEN" https://10.0.2.15:6443
 {
   "kind": "Status",
@@ -77,5 +78,5 @@ curl -k -H "Authorization: Bearer $TOKEN" https://10.0.2.15:6443
   "reason": "Unauthorized",
   "code": 401
 }
-
+```
 Hence project installs the Master node but no agents ATM.
