@@ -18,7 +18,7 @@ Ensure the following prerequisites are met before running the playbook:
 - **Ansible**: Installed on the control machine.
 - **Python**: Installed on the control machine.
 - **K3s binaries**: Downloaded and included in the repository.
-- **Root access**: On the target machines.
+- **Root access**: On the target machines with some user.
 
 ### Install Ansible
 
@@ -39,7 +39,16 @@ cd k3s_ansible
 ```
 
 ## Update LocalHost IP
-in playbook.yml -> change the k3s_master_ip to the desired IP address.
+in playbook.yml -> change the variables to fit your setup.
+```
+[workers]
+; EDIT FOLLOWING DATA TO ENSURE THE CORRECT INSTALL FOR AGENT
+worker1 ansible_host=<IP> ansible_user=<USER WITH ROOT ACCESS> ansible_password=<PASSWORD FOR USER> ansible_become_password=<PASSWORD FOR USER>
+
+[all:vars]
+; EDIT FOLLOWING DATA TO ENSURE THE CORRECT INSTALL FOR AGENT
+k3s_master_ip=<IP>
+```
 
 ### 3. Run the Playbook
 
@@ -62,21 +71,3 @@ After the playbook runs, verify that the cluster is up and running:
 kubectl get nodes
 ```
 
-
-## GAPS
-Tried installing on localhost both the Master and Agent, no success. 
-Keep getting unauthorized issue:
-
-```bash
-curl -k -H "Authorization: Bearer $TOKEN" https://10.0.2.15:6443
-{
-  "kind": "Status",
-  "apiVersion": "v1",
-  "metadata": {},
-  "status": "Failure",
-  "message": "Unauthorized",
-  "reason": "Unauthorized",
-  "code": 401
-}
-```
-Hence project installs the Master node but no agents ATM.
