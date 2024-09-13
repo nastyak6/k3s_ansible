@@ -1,4 +1,10 @@
 ---
+- name: Install K3s binary
+  copy:
+    src: k3s
+    dest: /usr/local/bin/k3s
+    mode: '0755'
+
 - name: Ensure K3s agent installation script is present
   copy:
     src: install.sh
@@ -7,14 +13,12 @@
 
 - name: Install K3s agent
   shell: |
-    INSTALL_K3S_SKIP_DOWNLOAD=true K3S_URL=http://{{ k3s_master_ip }}:6443 K3S_TOKEN={{ k3s_token }} /tmp/install.sh
+    INSTALL_K3S_SKIP_DOWNLOAD=true K3S_URL=https://{{ k3s_master_ip }}:6443 K3S_TOKEN={{ k3s_token }} /tmp/install.sh
   environment:
-    K3S_URL: "http://{{ k3s_master_ip }}:6443"
+    K3S_URL: "https://{{ k3s_master_ip }}:6443"
     K3S_TOKEN: "{{ k3s_token }}"
+  register: k3s_agent_install
 
-- name: Wait for the agent to register with the server
-  shell: kubectl get nodes
-  register: kubectl_output
-  until: "'Ready' in kubectl_output.stdout"
-  retries: 30
-  delay: 5
+- name: Display installation output
+  debug:
+    var: k3s_agent_install.stdout_lines
