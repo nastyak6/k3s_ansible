@@ -18,14 +18,14 @@
 
 - name: Wait for K3s to start
   pause:
-    seconds: 10  # Adjust as needed to ensure K3s is up
+    seconds: 10 
 
 - name: Get nodes using kubectl
   shell: kubectl get nodes
   register: kubectl_output
   until: "'Ready' in kubectl_output.stdout"
   retries: 30
-  delay: 10  # Delay in seconds between retries
+  delay: 10
 
 - name: Display kubectl output
   debug:
