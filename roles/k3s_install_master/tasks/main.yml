@@ -3,7 +3,7 @@
   file:
     path: /var/lib/rancher/k3s
     state: absent
-    recurse: yes
+    # recurse: yes
 
 - name: Delete K3s related binaries from /usr/local/bin
   file:
